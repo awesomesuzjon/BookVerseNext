@@ -1,7 +1,8 @@
-import { connect } from '../../../../dbConfig/dbConfig';
-import { NextRequest, NextResponse } from "next/server";
+import {connect} from '../../../../dbConfig/dbConfig';
+import {NextRequest, NextResponse} from "next/server";
 import User from "../../../../models/userModel";
 import bcryptjs from 'bcryptjs';
+import {sendEmail} from "../../../../helpers/mailer";
 
 // Connect to MongoDB
 connect();
@@ -9,14 +10,14 @@ connect();
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const { username, email, password } = reqBody;
+        const {username, email, password} = reqBody;
         console.log(reqBody, 'reqBody');
 
         // Check if user already exists
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
 
         if (user) {
-            return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+            return NextResponse.json({error: 'User already exists'}, {status: 400});
         }
 
         // Hash password
@@ -32,7 +33,10 @@ export async function POST(request: NextRequest) {
 
         // Save the new user to the database
         const savedUser = await newUser.save();
-        console.log(savedUser, 'savedUser');
+
+        //send verification email
+        await sendEmail({email, emailType: "VERIFY", userId: savedUser._id})
+
 
         return NextResponse.json({
             message: 'User created successfully',
@@ -41,6 +45,6 @@ export async function POST(request: NextRequest) {
         });
     } catch (error: any) {
         console.error('Error creating user:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({error: error.message}, {status: 500});
     }
 }

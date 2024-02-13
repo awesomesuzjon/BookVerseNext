@@ -4,7 +4,7 @@ import {NextRequest, NextResponse} from 'next/server'
 export function middleware(request: NextRequest) {
     //get the pathname from the request
     const path = request.nextUrl.pathname
-    const isPublicPath = path === '/login' || path === '/signup'
+    const isPublicPath = path === '/login' || path === '/signup' || path === '/verifyemail'
     const token = request.cookies.get('token')?.value || ''
 
     //if the path is public and there is token, redirect to login
@@ -25,5 +25,6 @@ export const config = {
         '/profile',
         '/login',
         '/signup',
+        '/verifyemail',
     ],
 }
