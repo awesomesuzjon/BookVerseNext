@@ -40,9 +40,8 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1>{loading ? "Processing" : "Log In"}</h1>
+            <h1 className='mb-2'>{loading ? "Processing..." : "Login Page"}</h1>
             <hr/>
-            <label htmlFor="email">email</label>
             <input
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="email"
@@ -51,7 +50,6 @@ export default function LoginPage() {
                 onChange={(e) => setUser({...user, email: e.target.value})}
                 placeholder="email"
             />
-            <label htmlFor="password">password</label>
             <input
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="password"
@@ -63,7 +61,15 @@ export default function LoginPage() {
             <button
                 onClick={onLogIn}
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">{btnDisabled ? "No LogIn" : "LogIn"}</button>
-            <Link href={"/signup"}>Visit SignUp page</Link>
+           <span className='flex '>
+
+            <Link href={"/signup"} className="p-2 mr-4  border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">Visit Signup page</Link>
+
+            <Link href={"/home"}
+                  className="p-2  border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
+                Go To HomePage </Link>
+           </span>
+
         </div>
     )
 }

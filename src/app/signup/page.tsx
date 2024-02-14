@@ -42,9 +42,8 @@ export default function SignupPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1>{loading ? "Processing" : "Signup"}</h1>
+            <h1 className='mb-2'> {loading ? "Processing..." : "Signup Page"}</h1>
             <hr/>
-            <label htmlFor="username">username</label>
             <input
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="username"
@@ -53,7 +52,6 @@ export default function SignupPage() {
                 onChange={(e) => setUser({...user, username: e.target.value})}
                 placeholder="username"
             />
-            <label htmlFor="email">email</label>
             <input
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="email"
@@ -62,7 +60,6 @@ export default function SignupPage() {
                 onChange={(e) => setUser({...user, email: e.target.value})}
                 placeholder="email"
             />
-            <label htmlFor="password">password</label>
             <input
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
                 id="password"
@@ -74,7 +71,15 @@ export default function SignupPage() {
             <button
                 onClick={onSignup}
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">{btnDisabled ? "No signup" : "Signup"}</button>
-            <Link href={"/login"}>Visit login page</Link>
+
+            <span className='flex '>
+            <Link href={"/login"}
+                  className="p-2 mr-4  border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">Visit Login page</Link>
+
+            <Link href={"/home"}
+                  className="p-2  border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
+                Go To HomePage </Link>
+           </span>
         </div>
     )
 }
